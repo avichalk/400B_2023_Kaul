@@ -1,4 +1,4 @@
-Checking to see if I know how to use git.
+Checking to see if I remember how to use git.
 Looks good so far.
 
 Edit: Wow, I didn't anticipate having to delete
