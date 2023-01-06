@@ -1,0 +1,6 @@
+Checking to see if I know how to use git.
+Looks good so far.
+
+Edit: Wow, I didn't anticipate having to delete
+my entire directory and repository to start from scratch.
+Branches are hard to work with...
