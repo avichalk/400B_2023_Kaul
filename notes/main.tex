@@ -107,4 +107,66 @@ Mass: $4.6*10^{10}M_{\odot}$. So, much more than is in the MW.
 				{\bf Dark Matter}. Mass: $ \sim {10}^{12}M_{\odot}$. 
 		\end{itemize}
 \end{enumerate}
+\section{24/01/2023}
+\begin{enumerate}
+  \item {\bf Our Local Group}.
+    \begin{itemize}
+      \item Milky Way.
+        \begin{enumerate}
+          \item $\approx 30 satellites$
+        \end{enumerate}
+      \item Andromeda ($\approx$ 770kpc away)
+        \begin{enumerate}
+          \item $\approx$ 32 satellites
+        \end{enumerate}
+    \end{itemize}
+\end{enumerate}
+They are close enough that there is considerable overlap between the two!
+\begin{enumerate}
+  \item {\bf Proper Motion} of an object is the change in position of an object on the sky when accounting for the rotation of the earth, solar system, etc.
+  \item We measured the proper motion of Andromeda, and found that it's moving basically directly towards us.
+  \item It will hit us in like 4Gyr.
+  \item Let's discuss galactic collisions.
+    \begin{itemize}
+      \item We need to solve the N-body problem.
+      \item But we don't want to model every single star in the galaxy. How do we choose?
+      \item We choose "star particles" with masses of $\sim 1000M_{\odot}$, which are taken to represent clumps of stars.
+    \end{itemize}
+Now, let's discuss rotation curves.
+\begin{itemize}
+  \item {\bf Rotation Curves}. The variation in the orbital velocity of stars or gas as a function of distance from the centre of the galaxy.
+    \begin{gather}
+       GMm/R^{2}=mV^{2}/R \\
+       M(<R)\propto V^{2}R \\
+       v_{c}(R) = \sqrt{GM(<R)/R} \\
+    %   v_{c)(R)=\sqrt{GM(<R)/R} \\
+    v_{c}(R)=R\omega
+    \end{gather}
+    Where $\omega$ is the angular velocity.
+
+  \item Let's define a few different types of rotation.
+    \begin{enumerate}
+      \item {\bf Solid Body}. Angular speed is constant as a function of radius. \[
+      V=R\omega, V\propto R
+      .\] This will tell us some things about the mass enclosed.\[
+      M(<R)\propto V^{2}R\propto R^{3}
+      .\] This also tell us about the density.\[
+      M(<R)=\text{Volume}*\text{Density}\propto R^{3}\rho
+      .\] Where $\rho$ is a constant.
+    \item {\bf Keplerian}. Mass is concentrated in the centre.\[
+        V\propto\sqrt{M/R}\propto R^{-1/2}
+    .\] So, if we start to see a rapid decrease in the velocity at a certain distance, we can assume most of the mass is concentrated at lesser radii.
+  \item {\bf Flat Rotation Curve}. V=constant across all radii.\[
+  M(<R)\propto V^{2}R \propto R
+  .\] So, the mass is increasing linearly with radius. \[
+  M \propto R^{3}\rho
+  .\] And these two equations give us \[
+  \rho \propto R^{-2}
+  .\] 
+    \end{enumerate}
+\end{itemize}
+\item {\bf VlSR} : Velocity of the Local Standard of Rest. This is the average velocity of stars near the sun with respect to the galactic centre. The sun will have some pecular motion with respect to the VLSR. We can use this to account for our own net motion in measuring rotation curves of other galaxies.
+  We find our own velocity to be $V_{\odot}=VLSR+V_{peculiar}$. We can then find thevelocity of galactic clouds that are along an angle $l$ from our line of sight. C.f. fig. 4 and corresponding math.
+  We can use the proper motion of Sag A* to find the velocity of gas clouds at different distances out from the galactic centre.
+\end{enumerate}
 \end{document}
