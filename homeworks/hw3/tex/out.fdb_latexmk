@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1674890115 "out.tex" "out.pdf" "out" 1674890116
+["pdflatex"] 1675362724 "out.tex" "out.pdf" "out" 1675362724
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1650183167 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1650183167 36281 c355509802a035cadc5f15869451dcee ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1650183167 35752 024fb6c41858982481f6968b5fc26508 ""
@@ -15,8 +15,8 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1650183167 39911 2da6c67557ec033436fe5418a70a8a61 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1674882518 336600 6f90c65e159aaf8faaa6ea56bf6655c4 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1674882497 2927665 a35a2e8092f896d0653fd7b227c65db4 ""
-  "out.aux" 1674890116 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
-  "out.tex" 1674890114 1694 daaab09d0543ce84b8908a41d599ea5c ""
+  "out.aux" 1675362724 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "out.tex" 1675290709 1944 6e34cde861e0cf6cbceaad3d412160f3 ""
   (generated)
   "out.aux"
   "out.log"
