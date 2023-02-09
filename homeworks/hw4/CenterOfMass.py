@@ -262,4 +262,36 @@ if __name__ == '__main__' :
     print(MW_COM_v)
 
     # now write your own code to answer questions
+    ## loading in files, particle type 2 (disk)
+    M31_COM = CenterOfMass("M31_000.txt", 2)
+    M33_COM = CenterOfMass("M33_000.txt", 2)
+    
+    ## setting up classes
+    M31_COM_p = M31_COM.COM_P(0.1)
+    M33_COM_p = M33_COM.COM_P(0.1)
+    M31_COM_v = M31_COM.COM_V(M31_COM_p[0], M31_COM_p[1], M31_COM_p[2])
+    M33_COM_v = M33_COM.COM_V(M33_COM_p[0], M33_COM_p[1], M33_COM_p[2])
 
+
+    print()
+    print("Question 1")
+    print("M31 position:" , M31_COM_p)
+    print("M33 position:", M33_COM_p)
+
+    print("M31 velocity:" , M31_COM_v)
+    print("M33 velocity:", M33_COM_v)
+
+    print()
+    print("Question 2")
+    ## finding vector magnitude, rounding, and printing
+    print("Distance between MW and M31:", np.round(np.sqrt(np.sum([i.value**2 for i in M31_COM_p-MW_COM_p])), 3), "kpc")
+    print("Velocity between MW and M31:", np.round(np.sqrt(np.sum([i.value**2 for i in M31_COM_v-MW_COM_v])), 3), "km/s")
+
+    print()
+    print("Question 3")
+    print("Distance between M33 and M31:", np.round(np.sqrt(np.sum([i.value**2 for i in M31_COM_p-M33_COM_p])), 3), "kpc")
+    print("Velocity between M33 and M31:", np.round(np.sqrt(np.sum([i.value**2 for i in M31_COM_v-M33_COM_v])), 3), "km/s")
+
+    print()
+    print("Question 4")
+    print("Once the two galaxies are close to merging, it will become more and more difficult to determine the centre of mass from sight alone. Advanced techniques such as this iterative process must be employed.")

@@ -1,0 +1,19 @@
+[-2.07  2.95 -1.45] kpc
+[-0.95  0.19 -1.32] km / s
+
+Question 1
+M31 position: [-377.66  611.43 -284.64] kpc
+M33 position: [-476.22  491.44 -412.4 ] kpc
+M31 velocity: [ 73.56 -72.04  48.67] km / s
+M33 velocity: [ 44.43 101.77 142.2 ] km / s
+
+Question 2
+Distance between MW and M31: 769.098 kpc
+Velocity between MW and M31: 115.186 km/s
+
+Question 3
+Distance between M33 and M31: 201.083 kpc
+Velocity between M33 and M31: 199.515 km/s
+
+Question 4
+Once the two galaxies are close to merging, it will become more and more difficult to determine the centre of mass from sight alone. Advanced techniques such as this iterative process must be employed.
