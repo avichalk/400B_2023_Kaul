@@ -140,11 +140,11 @@ class CenterOfMass:
             # select all particles within the reduced radius (starting from original x,y,z, m)
             # write your own code below (hints, use np.where)
             r2 = np.sqrt(self.x**2+self.y**2+self.z**2)
-            index2 = np.where(r2 < r_max)
-            x2 = self.data['x'][self.index]
-            y2 = self.data['y'][self.index]
-            z2 = self.data['z'][self.index]
-            m2 = self.data['m'][self.index]
+            index2 = np.where(r_new <= r_max)
+            x2 = self.x[index2]
+            y2 = self.y[index2]
+            z2 = self.z[index2]
+            m2 = self.m[index2]
             
             # Refined COM position:                                                                                    
             # compute the center of mass position using                                                                
@@ -171,10 +171,10 @@ class CenterOfMass:
             # Change the frame of reference to the newly computed COM.                                                 
             # subtract the new COM
             # write your own code below
-            x_new = x2 - x_COM2
-            y_new = y2 - y_COM2
-            z_new = z2 - z_COM2
-            r_new = r2 - r_COM2
+            x_new = self.x - x_COM2
+            y_new = self.y - y_COM2
+            z_new = self.z - z_COM2
+            r_new = np.sqrt(x_new**2+y_new**2+z_new**2) 
 
             # set the center of mass positions to the refined values                                                   
             x_COM = x_COM2
