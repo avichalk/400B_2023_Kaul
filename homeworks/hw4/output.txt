@@ -14,6 +14,7 @@ Velocity between MW and M31: 115.186 km/s
 Question 3
 Distance between M33 and M31: 201.083 kpc
 Velocity between M33 and M31: 199.515 km/s
+772.9771342672434
 
 Question 4
-Once the two galaxies are close to merging, it will become more and more difficult to determine the centre of mass from sight alone. Advanced techniques such as this iterative process must be employed.
+Once the two galaxies are close to merging, there will be gigantic outliers in terms of velocity and distance from the centre. These will not be isotropically distributed, since as the merger occurs, there is a tail behind one of the galaxies. This iterative processes will remove most outliers, and give us the true COM of the galaxies.

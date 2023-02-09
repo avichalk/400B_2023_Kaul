@@ -291,7 +291,7 @@ if __name__ == '__main__' :
     print("Question 3")
     print("Distance between M33 and M31:", np.round(np.sqrt(np.sum([i.value**2 for i in M31_COM_p-M33_COM_p])), 3), "kpc")
     print("Velocity between M33 and M31:", np.round(np.sqrt(np.sum([i.value**2 for i in M31_COM_v-M33_COM_v])), 3), "km/s")
-
+    print((np.sqrt(np.sum([i.value**2 for i in M31_COM_p]))))
     print()
     print("Question 4")
-    print("Once the two galaxies are close to merging, it will become more and more difficult to determine the centre of mass from sight alone. Advanced techniques such as this iterative process must be employed.")
+    print("Once the two galaxies are close to merging, there will be gigantic outliers in terms of velocity and distance from the centre. These will not be isotropically distributed, since as the merger occurs, there is a tail behind one of the galaxies. This iterative processes will remove most outliers, and give us the true COM of the galaxies.") 
