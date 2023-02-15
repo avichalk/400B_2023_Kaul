@@ -74,11 +74,11 @@ class MassProfile:
         """
         x = []
         for i in range(1, 4):
-            if self.gname == "M33":
+            if self.gname == "M33": ## checking for M33 ptype: 3
                 if i == 3:
                     break
             if x == []:
-                x = self.MassEnclosed(i, r)
+                x = self.MassEnclosed(i, r) ## adding up total masses
             else:
                 x += self.MassEnclosed(i, r)
         return np.array(x) * u.M_sun
@@ -178,11 +178,12 @@ def main():
                    label=ptype[0])
         
         ## plot total mass and velocity
+        print("        Total Mass and Velocities.")
         ax[1, index].semilogy(r, M.TotalCircularVelocity(r), linestyle=(5, (10, 3)), linewidth=3, 
                    label="Total")
         ax[0, index].semilogy(r, M.MassEnclosedTotal(r), linestyle=(5, (10, 3)), linewidth=3, 
                    label="Total")
-        
+
         # setting up Hernquist profiles
         actual_mass = M.MassEnclosed(1, r)
         rmse_mass = None
@@ -194,12 +195,14 @@ def main():
         a_final_velocity = None
         final_velocity = []
 
+        full_halo_mass_index = np.where(M.data["type"] == 1)[0]
+        full_halo_mass = np.sum(M.data["m"][full_halo_mass_index] * 1e10 * u.M_sun)
+ 
         ## fitting the Hernquist Profile
-        for a in range(1, 36):
-            print(f"        Hernquist mass + velocity for {M.gname}. Progress: {a}/35.", end='\r')
+        for a in range(1, 70):
+            print(f"        Hernquist mass + velocity for {M.gname}. Progress: {a}/69.", end='\r')
 
             ## find masses and velocities predicted by the Hernquist profile
-            full_halo_mass = M.MassEnclosed(1, 100.0)
             predicted_mass = M.HernquistMass(r, a, full_halo_mass)
             predicted_velocity = M.HernquistVCirc(r, a, full_halo_mass)
 
