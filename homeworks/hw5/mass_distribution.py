@@ -5,6 +5,7 @@ import numpy as np
 from astropy.constants import G
 import matplotlib.pyplot as plt
 
+## convert G to requisite units
 G = G.to(u.kpc * u.km**2 / u.s**2 / u.M_sun)
 
 class MassProfile:
@@ -161,24 +162,28 @@ def main():
         M = MassProfile(galaxy_name, 0)
         r = np.arange(0.1, 30, 0.1)
     
+        ## iterate over all different particle types
         for i, ptype in {1: ("Halo", "dashdot"), 2:("Disk", "--"), 3:("Bulge", ":"),}.items():
             if M.gname == "M33":
                 if i == 3:
                     break
 
+            ## plot mass and velocities for each particle type
             print(f"	Mass for {M.gname}. Ptype: {ptype[0]}")
             ax[0, index].semilogy(r, M.MassEnclosed(i, r), linestyle=ptype[1], linewidth=3, 
                    label=ptype[0])
+
             print(f"	Velocity for {M.gname}. Ptype: {ptype[0]}")
             ax[1, index].semilogy(r, M.CircularVelocity(i, r), linestyle=ptype[1], linewidth=3, 
                    label=ptype[0])
         
+        ## plot total mass and velocity
         ax[1, index].semilogy(r, M.TotalCircularVelocity(r), linestyle=(5, (10, 3)), linewidth=3, 
                    label="Total")
         ax[0, index].semilogy(r, M.MassEnclosedTotal(r), linestyle=(5, (10, 3)), linewidth=3, 
                    label="Total")
         
-        # setting up Hernquist 
+        # setting up Hernquist profiles
         actual_mass = M.MassEnclosed(1, r)
         rmse_mass = None
         a_final_mass = None
@@ -190,8 +195,9 @@ def main():
         final_velocity = []
 
         ## fitting the Hernquist Profile
-        print(f"	Hernquist mass + velocity for {M.gname}.")
-        for a in range(10):
+        for a in range(1, 36):
+            print(f"        Hernquist mass + velocity for {M.gname}. Progress: {a}/35.", end='\r')
+
             ## find masses and velocities predicted by the Hernquist profile
             full_halo_mass = M.MassEnclosed(1, 100.0)
             predicted_mass = M.HernquistMass(r, a, full_halo_mass)
@@ -212,7 +218,10 @@ def main():
                 a_final_velocity = a
                 final_velocity = predicted_velocity
         
+        print()
 
+        ## plot Hernquist profile info for both mass and velocity
+        ## and writes the accompanying text
         ax[0, index].semilogy(r, final_mass,  color="fuchsia", linewidth=3, 
                    label=f"Hernquist.")
 
