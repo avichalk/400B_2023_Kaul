@@ -106,7 +106,7 @@ class MassProfile:
         """ Function to calculate the circular velocity of a given particle type at a given radius.
         Inputs:
             ptype: int
-                Particle type. 1: Disk. 2: Disk. 3. Bulge.
+                Particle type. 1: Halo. 2: Disk. 3. Bulge.
             r: float or array of floats
                 Distance from the center of the galaxy in kpc
 
@@ -160,7 +160,7 @@ def main():
 
         ## finding the rotation curves
         M = MassProfile(galaxy_name, 0)
-        r = np.arange(0.1, 30, 0.1)
+        r = np.arange(0.01, 30, 0.01)
     
         ## iterate over all different particle types
         for i, ptype in {1: ("Halo", "dashdot"), 2:("Disk", "--"), 3:("Bulge", ":"),}.items():
