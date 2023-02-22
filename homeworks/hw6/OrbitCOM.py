@@ -146,7 +146,7 @@ def main():
     M33_M31_Velocity = vector_diff(np.array([M33[:, 4], M33[:, 5], M33[:, 6]]), np.array([M31[:, 4], M31[:, 5], M31[:, 6]],))
 
     
-    fig, ax = plt.subplots(2, 2, sharey="row", sharex=True, figsize=(14, 6))
+    fig, ax = plt.subplots(2, 2, sharey="row", sharex=True, figsize=(8, 4))
     
     # Plot the Orbit of the galaxies 
     #################################
@@ -167,8 +167,8 @@ def main():
     ax[1, 0].set_xlabel("Time [Gyr]")
     ax[0, 0].set_ylabel("Separation [kpc]")
     ax[1, 0].set_ylabel("V [km/s]")
-    
-    plt.show()
+
+    plt.savefig("fig.png")
 
 if __name__ == "__main__":
  main()

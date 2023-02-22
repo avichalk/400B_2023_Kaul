@@ -4,4 +4,4 @@
 
 3. M33 joins the MW, and thus its orbit merges almost entirely, with only very small deviations from the orbit of the MW.
 
-4. What?
+4. About 10. 
