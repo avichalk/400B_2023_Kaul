@@ -13,7 +13,6 @@ from astropy.constants import G
 
 # import plotting modules
 import matplotlib.pyplot as plt
-import matplotlib
 
 # my modules
 from readfile import Read
@@ -156,7 +155,7 @@ def main():
     ax[0, 1].plot(time, M33_M31_Separation)
     ax[0, 1].set_title("M33 vs M31 (Separation)")
 
-    # Plot the orbital velocities of the galaxies 
+    # Plot the orbital velocities of the galaxies
     #################################
     ax[1, 0].plot(time, MW_M31_Velocity)
     ax[1, 0].set_title("MW vs M31 (Velocity)")
@@ -170,5 +169,6 @@ def main():
 
     plt.savefig("fig.png")
 
+
 if __name__ == "__main__":
- main()
+    main()

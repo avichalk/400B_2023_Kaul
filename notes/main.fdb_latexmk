@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1675805614 "main.tex" "main.pdf" "main" 1675805615
+["pdflatex"] 1678741630 "main.tex" "main.pdf" "main" 1678741630
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1650183167 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1650183167 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1650183167 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -64,10 +64,10 @@
   "/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg" 1650183167 678 4792914a8f45be57bb98413425e4c7af ""
   "/usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty" 1650183167 56029 3f7889dab51d620aa43177c391b7b190 ""
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1650183167 39911 2da6c67557ec033436fe5418a70a8a61 ""
-  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1674882518 336600 6f90c65e159aaf8faaa6ea56bf6655c4 ""
-  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1674882497 2927665 a35a2e8092f896d0653fd7b227c65db4 ""
-  "main.aux" 1675805615 326 7435b3a2e4abb02adf38ea3a6de4c089 "pdflatex"
-  "main.tex" 1675805614 12594 5122f24309e26f19ae51a219d506ebf3 ""
+  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1677532689 336600 6f90c65e159aaf8faaa6ea56bf6655c4 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1677532675 2927663 e10c8d95dbcd0142c92175a3df263149 ""
+  "main.aux" 1678741630 326 7435b3a2e4abb02adf38ea3a6de4c089 "pdflatex"
+  "main.tex" 1678736994 12588 c0d5accfbfc34285145742656fe6b7b9 ""
   (generated)
   "main.aux"
   "main.log"
