@@ -144,7 +144,12 @@ def main():
     M33_M31_Separation = vector_diff(np.array([M33[:, 1], M33[:, 2], M33[:, 3]]), np.array([M31[:, 1], M31[:, 2], M31[:, 3]],))
     M33_M31_Velocity = vector_diff(np.array([M33[:, 4], M33[:, 5], M33[:, 6]]), np.array([M31[:, 4], M31[:, 5], M31[:, 6]],))
 
-    
+    out = np.array([time, M33_M31_Separation, M33_M31_Velocity])
+    print(out)
+    np.savetxt("M31_M33_orbit.txt", out, fmt = "%11.3f"*7, comments='#', 
+                   header="{:>10s}{:>11s}{:>11s}{:>11s}{:>11s}{:>11s}{:>11s}"\
+                   .format('t', 'x', 'y', 'z', 'vx', 'vy', 'vz'))
+        
     fig, ax = plt.subplots(2, 2, sharey="row", sharex=True, figsize=(8, 4))
     
     # Plot the Orbit of the galaxies 

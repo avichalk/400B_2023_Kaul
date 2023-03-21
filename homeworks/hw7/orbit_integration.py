@@ -212,5 +212,57 @@ class M33AnalyticOrbit:
         
         # there is no return function
 
-M33 = M33AnalyticOrbit("outfile.txt", )
-M33.OrbitIntegration(0, 0.1, 10)
+def main():
+    #M33 = M33AnalyticOrbit("outfile.txt", )
+    #M33.OrbitIntegration(0, 0.1, 10)
+
+
+    # Read in the data files for the orbits of each galaxy that you just created
+    # headers:  t, x, y, z, vx, vy, vz
+    # using np.genfromtxt
+    
+    M31 = np.genfromtxt("output/LowRes/Orbit-M31.txt")
+    M31_M33 = np.genfromtxt("output/LowRes/Orbit-M33.txt")
+
+    # function to compute the magnitude of the difference between two vectors 
+    # You can use this function to return both the relative position and relative velocity for two 
+    # galaxies over the entire orbit  
+    
+    time = M31[:, 0]
+
+    ## MW vs M31
+    
+    # Determine the magnitude of the relative position and velocities 
+    
+    # of MW and M31
+    M31_Position = np.array([M31[:, 1], M31[:, 2], M31[:, 3]],)
+    M31_Velocity = np.array([M31[:, 4], M31[:, 5], M31[:, 6]],)
+
+    # of M33 and M31
+    M33_M31_Separation = np.array([M31_M33[:, 1], M31_M33[:, 2], M31_M33[:, 3]],)
+    M33_M31_Velocity = np.array([M31_M33[:, 4], M31_M33[:, 5], M31_M33[:, 6]],)
+
+    
+    fig, ax = plt.subplots(2, 2, sharey="row", sharex=True, figsize=(8, 4))
+    
+    # Plot the Orbit of the galaxies 
+    #################################
+    ax[0].plot(time, M31_Position, "MW vs M31 (Separation)")
+
+    ax[0].plot(time, M33_M31_Separation)
+
+    # Plot the orbital velocities of the galaxies
+    #################################
+    ax[1].plot(time, M31_Velocity)
+
+    ax[1].plot(time, M33_M31_Velocity)
+
+    ax[1].set_xlabel("Time [Gyr]")
+    ax[0].set_ylabel("Separation [kpc]")
+    ax[1].set_ylabel("V [km/s]")
+
+    plt.savefig("fig.png")
+
+
+if __name__ == "__main__":
+    main()
