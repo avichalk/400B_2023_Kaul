@@ -179,7 +179,7 @@ class M33AnalyticOrbit:
             # **** advance the time by one timestep, dt
            
             # **** store the new time in the first column of the ith row
-            orbit[i, 1] = t
+            orbit[i, 0] = t
             
             # ***** advance the position and velocity using the LeapFrog scheme
             # remember that LeapFrog returns a position vector and a velocity vector  
@@ -212,6 +212,24 @@ class M33AnalyticOrbit:
         
         # there is no return function
 
+
+def vector_diff(a, b):
+    """ Computes magnitude of the difference between two vectors.
+    
+        Inputs:
+            a: numpy array
+                First Vector (x, y, z)
+            b: numpy array
+                Second Vector (x, y, z)
+        Outputs:
+            mag: float
+                Magnitude of the difference vector.
+    """
+    sub = a - b
+    res = np.sqrt(sub[0]**2 + sub[1]**2 + sub[2]**2)
+    return np.abs(res)
+
+
 def main():
     #M33 = M33AnalyticOrbit("outfile.txt", )
     #M33.OrbitIntegration(0, 0.1, 10)
@@ -221,45 +239,49 @@ def main():
     # headers:  t, x, y, z, vx, vy, vz
     # using np.genfromtxt
     
-    M31 = np.genfromtxt("output/LowRes/Orbit-M31.txt")
-    M31_M33 = np.genfromtxt("output/LowRes/Orbit-M33.txt")
+    M31_M33 = np.genfromtxt("outfile.txt")
+
+    M31 = np.genfromtxt("Orbit-M31.txt")
+    M33 = np.genfromtxt("Orbit-M33.txt")
 
     # function to compute the magnitude of the difference between two vectors 
     # You can use this function to return both the relative position and relative velocity for two 
     # galaxies over the entire orbit  
     
-    time = M31[:, 0]
+    time = M31_M33[:, 0]
+    time2 = M31[:, 0]
 
     ## MW vs M31
     
     # Determine the magnitude of the relative position and velocities 
     
     # of MW and M31
-    M31_Position = np.array([M31[:, 1], M31[:, 2], M31[:, 3]],)
-    M31_Velocity = np.array([M31[:, 4], M31[:, 5], M31[:, 6]],)
+    M31_Position = np.sqrt(M31_M33[:, 1]**2 + M31_M33[:, 2]**2 + M31_M33[:, 3]**2)
+    M31_Velocity = np.sqrt(M31_M33[:, 4]**2 + M31_M33[:, 5]**2 + M31_M33[:, 6]**2)
 
     # of M33 and M31
-    M33_M31_Separation = np.array([M31_M33[:, 1], M31_M33[:, 2], M31_M33[:, 3]],)
-    M33_M31_Velocity = np.array([M31_M33[:, 4], M31_M33[:, 5], M31_M33[:, 6]],)
-
+    M33_M31_Separation = vector_diff(np.array([M33[:, 1], M33[:, 2], M33[:, 3]]), np.array([M31[:, 1], M31[:, 2], M31[:, 3]],))
+    M33_M31_Velocity = vector_diff(np.array([M33[:, 4], M33[:, 5], M33[:, 6]]), np.array([M31[:, 4], M31[:, 5], M31[:, 6]],))
     
-    fig, ax = plt.subplots(2, 2, sharey="row", sharex=True, figsize=(8, 4))
+    fig, ax = plt.subplots(2, sharey="row", sharex=True, figsize=(8, 4))
     
     # Plot the Orbit of the galaxies 
     #################################
-    ax[0].plot(time, M31_Position, "MW vs M31 (Separation)")
+    ax[0].plot(time, M31_Position, label="Old Pos")
 
-    ax[0].plot(time, M33_M31_Separation)
+    ax[0].plot(time2, M33_M31_Separation, label="New Pos")
 
     # Plot the orbital velocities of the galaxies
     #################################
     ax[1].plot(time, M31_Velocity)
 
-    ax[1].plot(time, M33_M31_Velocity)
+    ax[1].plot(time2, M33_M31_Velocity)
 
     ax[1].set_xlabel("Time [Gyr]")
     ax[0].set_ylabel("Separation [kpc]")
     ax[1].set_ylabel("V [km/s]")
+
+    plt.legend()
 
     plt.savefig("fig.png")
 
