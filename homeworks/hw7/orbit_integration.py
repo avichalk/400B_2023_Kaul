@@ -307,8 +307,9 @@ def vector_diff(a, b):
 
 
 def main():
-    M33 = M33AnalyticOrbit("outfile.txt", )
-    M33.OrbitIntegration(0, 0.1, 10)
+    if sys.argv[1] == "generate":
+        M33 = M33AnalyticOrbit("outfile.txt", )
+        M33.OrbitIntegration(0, 0.1, 10)
 
     # Read in the data files for the orbits of each galaxy that you just created
     # headers:  t, x, y, z, vx, vy, vz
