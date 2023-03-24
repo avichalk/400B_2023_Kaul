@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1679605629 "answers.tex" "answers.pdf" "answers" 1679605630
+["pdflatex"] 1679639745 "answers.tex" "answers.pdf" "answers" 1679639745
   "../fig.png" 1679540409 57580 6e0c554fbfd3246494dc17a86be2d935 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1650183167 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1650183167 1004 54797486969f23fa377b128694d548df ""
@@ -47,8 +47,8 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1650183167 39911 2da6c67557ec033436fe5418a70a8a61 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1677532689 336600 6f90c65e159aaf8faaa6ea56bf6655c4 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1677532675 2927663 e10c8d95dbcd0142c92175a3df263149 ""
-  "answers.aux" 1679605630 179 4b12bbfb8689a3cc28251339854da29b "pdflatex"
-  "answers.tex" 1679605628 685 d7d6f821026c4090f763a1f47e748795 ""
+  "answers.aux" 1679639745 179 4b12bbfb8689a3cc28251339854da29b "pdflatex"
+  "answers.tex" 1679639744 998 14e25af5dfd0359f98bff08b572cb083 ""
   (generated)
   "answers.aux"
   "answers.log"

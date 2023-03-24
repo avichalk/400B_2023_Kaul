@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2023.2.27)  23 MAR 2023 14:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2023.2.27)  23 MAR 2023 23:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -166,13 +166,13 @@ Package pdftex.def Info: ../fig.png  used on input line 16.
 Here is how much of TeX's memory you used:
  2558 strings out of 478238
  37410 string characters out of 5850456
- 325039 words of memory out of 5000000
+ 326039 words of memory out of 5000000
  20795 multiletter control sequences out of 15000+600000
  474203 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,6n,62p,237b,232s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,6n,62p,255b,232s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on answers.pdf (1 page, 83672 bytes).
+Output written on answers.pdf (1 page, 84626 bytes).
 PDF statistics:
  26 PDF objects out of 1000 (max. 8388607)
  14 compressed objects within 1 object stream
