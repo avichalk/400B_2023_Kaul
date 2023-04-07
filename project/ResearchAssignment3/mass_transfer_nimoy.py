@@ -10,8 +10,8 @@ from readfile import Read
 
 class GalaxyPos:
     def __init__(self, galaxy_name):
-
         self.time, self.total, self.data = Read(galaxy_name)                                                                                             
+
     def position(self, ptype):
 
         index = np.where(self.data['type'] == ptype)
@@ -41,6 +41,16 @@ def main():
         
 
         print(i)
+
+
+    ## issue : how to classify whether or not one part of the galaxy is inside another part? Use COM function?
+    ## which center of mass is the galaxy closer to
+    ## or something along the lines of an energy argument
+    ## use half-mass radius, 
+    ## check energy. calculate potential by getting potential of the particle against the galaxy (assume point mass), and you know the KE.
+    ## find the total E, if it is -ve, it is gravitationally bound to that galaxy
+
+    ## use binning algorithm to clear up graph. contour plots within galaxy?
 
 
 if __name__ == "__main__":
