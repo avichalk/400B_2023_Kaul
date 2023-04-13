@@ -698,7 +698,8 @@ if __name__ == '__main__':
 
     # What is the size of the universe at each redshit in each cosmology
     # We need to again use a list comprehension 
-
+    Horizon = [benchmark.ProperDistance(i, 1e3).value for i in zrange2]
+    Horizon2 = [benchmark2.ProperDistance(i, 1e3).value for i in zrange2]
 
 
 
@@ -711,9 +712,9 @@ if __name__ == '__main__':
 
     # Comoving Distance
     # FILL THIS IN
-    #plt.semilogy(###, ### , linewidth=5, label='BenchMark')
+    plt.semilogy(zrange2 + 1, Horizon , linewidth=5, label='BenchMark')
 
-    #plt.semilogy(### , ###  , linewidth=5, linestyle='--', label='DeSitter')
+    plt.semilogy(zrange2 + 1 , Horizon2  , linewidth=5, linestyle='--', label='DeSitter')
 
 
     # Add axis labels
