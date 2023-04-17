@@ -1,0 +1,16 @@
+PWD /home/user41/documents/college/Classes/spring_2023/400b/project/ResearchAssignment4
+INPUT /usr/share/texmf-dist/web2c/texmf.cnf
+INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
+INPUT sample631.tex
+OUTPUT sample631.log
+INPUT ./aastex631.cls
+INPUT ./aastex631.cls
+INPUT aastex631.cls
+INPUT ./aastex631.cls
+INPUT ./aastex631.cls
+INPUT ./aastex631.cls
+INPUT ./aastex631.cls
+INPUT ./aastex631.cls
+INPUT aastex631.cls
+INPUT ./aastex631.cls
+INPUT aastex631.cls

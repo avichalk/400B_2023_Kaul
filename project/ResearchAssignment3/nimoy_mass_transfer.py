@@ -1,6 +1,7 @@
 ## The goal of my research project is to track the mass transfer between M31 and the Milky Way using Simulation Data.
 ## For this assignment, we will only concern ourselves with the position of the transferred mass, as opposed to the kinematics.
 ## We will be creating a plot showing the mass transferred between the two galaxies at different snapshots.
+## extra
 
 import numpy as np
 import astropy.constants as const

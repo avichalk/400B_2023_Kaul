@@ -7,7 +7,7 @@ import astropy.constants as const
 import matplotlib.pyplot as plt
 
 from readfile import Read
-from 
+from CenterOfMass import CenterOfMass
 
 class GalaxyPos:
     def __init__(self, galaxy_name):
@@ -27,6 +27,12 @@ def main():
     ## i'm going to plot each different particle type in its own plot
     MW = GalaxyPos("MW_000.txt")
     M31 = GalaxyPos("M31_000.txt")
+
+    ## Plot COM so we can see how it changes over time. We can also use this to fit a Hernquist profil
+    MW_COM = CenterOfMass("MW_000.txt", 2)
+    MW_COM_p = MW_COM.COM_P()
+
+    ## loop over all particles and check a) unbound to host galaxy b) bound to new galaxy. if neither are true, assume still bound to host galaxy
     
     fig, ax = plt.subplots(figsize=[10, 5])
 

@@ -1,0 +1,43 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.3.31)  8 APR 2023 14:22
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**sample631.tex
+(./sample631.tex
+LaTeX2e <2022-11-01> patch level 1
+L3 programming layer <2023-02-22> (./aastex631.cls
+Document Class: aastex631 2020/12/20 Version 6.3.1d/AAS markup document class
+Class aastex Info: 
+ 
+ Original \LaTeX2.09 style by Chris Biemesderfer (chris@seagoat.com). 
+ Adapted to \LaTeXe by A. Ogawa (ogawa@teleport.com)
+ emulateapj.cls included, Copyright 2000-2015 Alexey Vikhlinin 
+ Rewrite and update of emulateapj.cls, revised and enhanced with table macros, gridlines, draft watermark,
+ track changes, new `modern' style and much more, by Amy Hendrickson,
+ (amyh@texnology.com, http://www.texnology.com) 
+ 
+  on input line 106.
+\bibbaselineskip=\skip48
+
+
+ Please update your system to include revtex4-1.cls
+
+
+ ) )
+(\end occurred when \ifx on line 2 was incomplete) 
+Here is how much of TeX's memory you used:
+ 124 strings out of 476025
+ 1965 string characters out of 5796532
+ 1849388 words of memory out of 5000000
+ 20672 multiletter control sequences out of 15000+600000
+ 512287 words of font info for 32 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 29i,1n,37p,142b,18s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+No pages of output.
+PDF statistics:
+ 0 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

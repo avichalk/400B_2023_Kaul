@@ -1,0 +1,12 @@
+# Fdb version 4
+["pdflatex"] 1680988979 "sample631.tex" "sample631.pdf" "sample631" 1680988979 1
+  "/usr/share/texmf-dist/web2c/texmf.cnf" 1679564905 39911 2da6c67557ec033436fe5418a70a8a61 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1680277349 8204098 0d17faae7edfff748b3baa24d63ccb84 ""
+  "aastex631.cls" 1681014138 231673 3a8503ea2dc529eec05658a2b11d12d0 ""
+  "sample631.aux" 1680988979 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "sample631.tex" 1681014138 8040 cd2e87f8b020cff5388f49c248ea6980 ""
+  (generated)
+  "sample631.aux"
+  "sample631.log"
+  "sample631.pdf"
+  (rewritten before read)
