@@ -14,23 +14,21 @@ from mass_distribution import MassProfile
 from astropy.constants import G
 G = G.to(u.kpc * u.km**2 / u.s**2 / u.M_sun)
 
+def filename(snapshot, galaxy):
+    return f'snapshots/{galaxy}_{["000"+str(snapshot)][0][-3:]}.txt'
+
 class GalaxyPos:
-    def __init__(self, galaxy_name):
-        self.time, self.total, self.data = Read(galaxy_name)                                                                                             
-        print(self.data.dtype)
-
+    def __init__(self, snapshot, galaxy):
+        self.time, self.total, self.data = Read(filename(snapshot, galaxy))                                                                                             
     def position(self, ptype):
-        index = np.where(self.data['type'] == ptype)
+        #index = np.where(self.data['type'] == ptype)
         
-        self.x = self.data['x'][index]
-        self.y = self.data['y'][index]
-        self.z = self.data['z'][index]
+        self.x = self.data['x']#[index]
+        self.y = self.data['y']#[index]
+        self.z = self.data['z']#[index]
 
-        return self.x, self.y
+        return np.array([self.x, self.y])
 
-    def potential(self, ptype):
-        ## i understand fitting to a Hernquist profile, but how to find the scale radius?
-        pass
 """
 At each timestep, calculate all particle potential energy and kinetic energy. use hernquist profile and COM to find which particles are bound to what. 
 So, at each timestep, a new class is instantiated.
@@ -44,7 +42,7 @@ class GenerateEnergies:
 
         We calculate the binding for all particles of one galaxy first, then all particles of the second galaxy.
         """
-        self.name = self.filename(snapshot, galaxy) 
+        self.name = filename(snapshot, galaxy) 
         self.shot = snapshot
         self.galaxy = galaxy
 
@@ -60,8 +58,6 @@ class GenerateEnergies:
         self.vz = np.transpose(self.data['vz'])
 
 
-    def filename(self, snapshot, galaxy):
-        return f'{galaxy}_{["000"+str(snapshot)][0][-3:]}.txt'
 
     def KE(self,):
         """
@@ -74,7 +70,7 @@ class GenerateEnergies:
         """
         print(f"Calculating KE.")
         v_squared = self.vx**2 + self.vy**2 + self.vz**2 
-        return 0.5 * self.m * v_squared * (u.km / u.s)**2 ## * 1e10 * u.Msun * 
+        return 0.5 * self.m * v_squared #* (u.km / u.s)**2 ## * 1e10 * u.Msun * 
 
     def V(self,):
         """
@@ -92,19 +88,21 @@ class GenerateEnergies:
         out = []
         for i in {"MW", "M31"}:
             print(f"Calculating V for {i}.")
-            COM = CenterOfMass(self.filename(self.shot, i), 2)
+            COM = CenterOfMass(filename(self.shot, i), 2)
             COM_p = COM.COM_P(0.1).value
             a = self.x - COM_p[0]
             b = self.y - COM_p[1]
             c = self.z - COM_p[2]
             r = np.sqrt(np.square(a)+np.square(b)+np.square(c))
+            ## r and V_squared have same shape. problem lies in below code.
             Profile = MassProfile(i, self.shot) ## ansc inputs, don't actually work
             print("Calculating mass enclosed")
-            M = Profile.MassEnclosedTotal(r)
+            full_halo_mass_index = np.where(Profile.data["type"] == 1)[0]
+            full_halo_mass = np.sum(Profile.data["m"][full_halo_mass_index] * 1e10 * u.M_sun)
+            M = Profile.HernquistMass(r, 62, full_halo_mass).value
             print("doing V")
             V = - G * M / r
-            np.savetxt(f"{i}", V)
-            out.append(V)
+            out.append(V.value)
         return out
 
     def check_if_bound(self,):
@@ -112,12 +110,19 @@ class GenerateEnergies:
         Check total energy. If -ve, it is gravitationally bound to that galaxy.
         If positive, unbound. Check against both galaxies.
         """
+        #E_MW = np.loadtxt("MW")
+        #E_M31 = np.loadtxt("M31")
         KE = self.KE()
+        #MW_V = np.loadtxt("MW") 
+        #M31_V = np.loadtxt("M31") 
         MW_V, M31_V = self.V()
         
         print(f"Calculating Total E.")
-        E_MW = KE.value + MW_V.value
-        E_M31 = KE.value + M31_V.value
+        E_MW = KE + MW_V
+        E_M31 = KE + M31_V ## unit errors?
+        #print(E_MW.shape, E_M31.shape)
+        #np.savetxt("MW", E_MW)
+        #np.savetxt("M31", E_M31)
 
         return np.sign(E_MW), np.sign(E_M31)
 
@@ -142,10 +147,33 @@ def main():
     #ax.legend()
     #plt.show()
 
-    for i in {"MW", "M31"}:
-        E = GenerateEnergies(0, i)
-        res = E.check_if_bound()
-        print(res)
+    
+    for i in range(0, 800, 100):
+        print(i)
+        E = GenerateEnergies(i, "MW")
+        mw_to_mw, mw_to_m31 = E.check_if_bound()
+
+        #E = GenerateEnergies(0, "M31")
+        m31_to_mw, m31_to_m31 = E.check_if_bound()
+
+        #mw_bound = np.where[mw_to_mw < 0]
+        #m31_bound = np.where[m31_to_m31 < 0]
+
+        MW = GalaxyPos(i, "MW")
+        #M31 = GalaxyPos("M31_000.txt")
+
+        fig, ax = plt.subplots(figsize=[10, 5])
+
+        col1 = np.where(mw_to_mw < 0, 'r', np.where(mw_to_m31 < 0, 'b', ''))
+        #col2 = np.where(m31_to_mw < 0, 'r', np.where(m31_to_m31 < 0, 'b', ''))
+        mpos = MW.position(2)
+        #m31pos = M31.position(2)    
+
+        ax.scatter(*mpos, c=col1, label="MW")
+        #ax.scatter(*m31pos, c=col2, label="M31")
+
+        ax.legend()
+        plt.savefig(f"output/{i}.png")
 
 
 if __name__ == "__main__":
