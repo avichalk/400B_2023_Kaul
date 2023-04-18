@@ -1,0 +1,4 @@
+{
+  "_comment1": "Pyright absolutely hates numpy and array indexing with a passion. Who knows what else is broken because of this.",
+  "reportGeneralTypeIssues": false
+}
