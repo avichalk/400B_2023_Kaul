@@ -1,4 +1,4 @@
-\documentclass[linenumbers]{aastex631} %, twocolumn
+\documentclass[linenumbers, ]{aastex631}
 
 \newcommand{\vdag}{(v)^\dagger}
 \newcommand\aastex{AAS\TeX}
@@ -14,38 +14,35 @@
 
 \title{Tracking Mass Transfer between M31 and the Milky Way using Galactic Simulation Data}
 
-
+%% REFS FOR IMAGES 1 and 4 not working. I don't understand why, and nothing I tried would fix it.
 
 
 \author{Avichal Kaul}
 \affiliation{Steward Observatory, University of Arizona, 933 N. Cherry Ave, Tucson, AZ 85721, USA}
 
 \begin{abstract}
-Galactic Mergers are a process during which two or more galaxies fall together to form one galaxy. The structure of the galaxy undergoes massive changes, which can have huge consequences for stellar formation and galactic evolution. Our aim was to study the nature of the mass transfer during the merger between M31 and the MW. This will help further our understanding of galactic evolution, and help explain where mass transferred between the galaxies ends up. We find that almost no material ends up gravitationally unbound. We also find that most mass transfer between the galaxies results in mass concentrated around the galactic centres. 
+Galactic Mergers are a process during which two or more galaxies fall together to form one galaxy. The structure of the galaxy undergoes massive changes, which can have huge consequences for stellar formation and galactic evolution. Our aim was to study the nature of the mass transfer during the merger between M31 and the MW. This will help further our understanding of galactic evolution, and help explain where mass transferred between the galaxies ends up. We find that almost no material ends up gravitationally unbound. We also find that most mass transfer between the galaxies results in mass concentrated around the galactic centres. This tells us that the effects of dynamical friction are immense, and effectively trap any particles within the combined system's gravitational well. The particles that are transferred often end up near the galactic centre, though particles that are flung outward and then fall inwards might join them in the more homogeneous irregular galaxy that results from this merger.
 \end{abstract}
 
-\keywords{Stellar Disk -- Stellar Bulge -- Major Merger -- Dynamical Friction  -- Spiral Galaxy -- Tidal Tails -- Rotation Curve}
-
-
+\keywords{Stellar Disk -- Stellar Bulge -- Major Merger -- Dynamical Friction  -- Tidal Tails}
 
 \section{Introduction}
 
 A galaxy is a gravitationally bound collection of stars whose properties
-cannot be explained by a combination of baryons and Newton’s laws of gravity \citep{Willman_Strader_2012} [where do i find a definition for galaxy evolution]
+cannot be explained by a combination of baryons and Newton’s laws of gravity \citep{Willman_Strader_2012}. It consists, broadly, of the Bulge - a tightly-packed group of stars surrounding the galactic centre \citep{Minniti_2007}, the Disk - a thin, circular collection of stars and gas, and the Dark Matter Halo - an object whose presence is inferred from its effect on the rotation curve of the Disk and the Bulge, as we cannot observe it directly.
 
-
-Galactic Mergers are a process during which two or more galaxies, due to a combination of gravitational attraction and dynamic friction, fall together and merge into one galaxy. During this process, the star formation rate is increased hugely \citep{Moster_2011} and the structure of the galaxy undergoes massive changes - often, structures such as tidal tails are introduced, though these are not exclusive to galactic mergers. An example of one of these mergers can be seen in Figure \ref{fig:Privon image}.
-
+Galactic Mergers are a process during which two or more galaxies, due to a combination of gravitational attraction and dynamic friction, fall together and merge into one galaxy. During this process, the star formation rate is increased hugely \citep{Moster_2011} and the structure of the galaxy undergoes massive changes. An example of one of these mergers can be seen in Figure 1.
 
 Galactic mergers are an incredibly important aspect of galactic evolution. \citep{1978MNRAS.183..341W} notes that the $\lambda\text{CDM}$ model of cosmology suggests present day galaxies are formed from successive accretions and mergers of smaller entities. These successive accretions and mergers have been linked to star formation \citep{Barnes_2004} due to the sudden collision and compression of large HI clouds. Even the formation of tidal tails, an elongated region of gas and stars that extends from a galaxy, are directly linked to the tidal forces exerted by other galaxies.
 
+Mass transfer during mergers is very common, along with galactic material being flung out to immense distances. Some of the most famous examples of these are the Mice galaxies, modelled in \citep{Privon_2013}, which are a prime example of this transfer. Figure 1 shows us how a galactic merger can disrupt the structure of the galaxy, and how the transferred material is likely to evolve. 
 
 While the process of galaxies accreting and merging is well understood, there are still various open questions in this field. For instance, the role that supermassive black holes and Active Galactic Nuclei have to play during a merger \citep{Silverman_2011}. In fact, we still cannot explain bulge formation as a function of galactic mergers \citep{Brooks2016}, which is a huge gap in our scientific understanding.
 
 \begin{figure}
     \centering
     \includegraphics[width = 0.5\linewidth]{page08_1.jpg}
-    \label{fig:Privon image}
+    \label{fig:Privonimage}
     \caption{A snapshot from a galactic merger simulation that shows mass transfer between two galaxies. Figure from \citep{Privon_2013}.}
 \end{figure}
 
@@ -65,7 +62,7 @@ In the following sections, we will consider Galaxy A (stationary in its referenc
 % replace time range w/ the actual time in Gyr
 Gravitational N-body simulations are numerical simulations of the equations of motion for N particles interacting gravitationally \citep{trenti2008gravitational}. We are using N-body galactic simulations from \citep{Besla}, which provides us with a full simulation of the MW colliding with M31 over a time range of multiple Gyr. 
 
-We wish to characterise the mass transfer at different points in the merger process. Especially of interest are the timesteps right after a close encounter, as a lot of material will be transferred between the galaxies at this time and will gradually settle into place. It will be interesting to see what material gets assimilated into another galaxy, and what material becomes gravitationally unbound. An example of what this looks like can be seen in Figure \ref{fig:Privon image}, where you can see the mass transfer between colliding galaxies. This image shows what material has been transferred, but we will also be evaluating how strongly said material is gravitationally bound. 
+We wish to characterise the mass transfer at different points in the merger process. Especially of interest are the timesteps right after a close encounter, as a lot of material will be transferred between the galaxies at this time and will gradually settle into place. It will be interesting to see what material gets assimilated into another galaxy, and what material becomes gravitationally unbound. An example of what this looks like can be seen in Figure 1, where you can see the mass transfer between colliding galaxies. This image shows what material has been transferred, but we will also be evaluating how strongly said material is gravitationally bound. 
 
 
 To check whether or not particles are gravitationally bound, we need to compare their Kinetic Energy ($T$) to their Potential Energy ($\phi$), which are given below.
@@ -75,7 +72,7 @@ T = \frac{1}{2} mv^2 \\
 \phi = -\frac{GM(R)}{R}
 \end{gather}
 
-Here, $m$ is the mass of the particle $M_\odot$, $v$ is the velocity of the particle (km/s), $G$ is the Universal Gravitational Constant, $M(R)$ is the mass $M_\odot$ enclosed within galactocentric radius $R$ (kpc) of the galaxy. We will be using the Hernquist profile \citep{1990ApJ...356..359H} to find $M(R)$.
+Here, $m$ is the mass of the particle ($M_\odot$), $v$ is the velocity of the particle (km/s), $G$ is the Universal Gravitational Constant, $M(R)$ is the mass $M_\odot$ enclosed within galactocentric radius $R$ (kpc) of the galaxy. We will be using the Hernquist profile \citep{1990ApJ...356..359H} to find $M(R)$.
 
 \begin{gather}
     \rho(r) = \frac{\rho}{(\frac{r}{r_s}(1+\frac{r}{r_s}^3))}\\
@@ -156,23 +153,23 @@ I expect that, during the first couple of close encounters, most of the exchange
 
 There are four main figures created. The first (Figure \ref{fig:potentialdists}) is a histogram of the Total Energy of particles in each galaxy with respect to (a) its host galaxy and (b) the other galaxy. It can be used to see how the system evolves with time and, importantly, to see if particles can end up gravitationally unbound. The answer, as is evident in the figure, is no. The potentials stay largely the same with time, even for the disk as it is being torn apart, demonstrating the true gravitational power the combined system has. At these energies, no particles will escape.
 
-The second figure gives us an idea of how the system has been disrupted. Figure \ref{fig:meanstdev} provides us with the mean and standard deviation of the galactocentric radii of the particles in the system. Though the energies remain largely homogeneous, the displacements are immense, demonstrating just how far out the merger has flung the mass in the galaxies and disrupted their regular rotation.
+The second figure gives us an idea of how the system has been disrupted. Figure 4 provides us with the mean and standard deviation of the galactocentric radii of the particles in the system. Though the energies remain largely homogeneous, the displacements are immense, demonstrating just how far out the merger has flung the mass in the galaxies and disrupted their regular rotation.
 
 The third figure (Figure \ref{fig:vdists}) is similar to Figure \ref{fig:potentialdists}. It is a histogram of the velocity distributions (km/s) of all the particles in the galaxy, before, during, and after the merger. Once more, we note that there is little change in the velocities over time, and few outliers. This is a good demonstration of dynamical friction.
 
-The final set of figures (add) are a simple 2D projection of each particle type over the course of the merger and the close encounters that precede it. These a good visual check for how badly different parts of the galaxy are affected by the merger.
+The final set of figures (Figure \ref{fig:2dproj}) are a simple 2D projection of each particle type over the course of the merger and the close encounters that precede it. These a good visual check for how badly different parts of the galaxy are affected by the merger.
 
 The movies created of these simulations are available on Github.
 
 \section{Discussion}
 Let's look at Figure \ref{fig:potentialdists}. There is very little change over time, even through multiple close encounters. This tells us that the merger, violent though it is, does not appreciably change the velocity of the particles or the displacement from the Center of Mass enough for it to be reflected in the total energy. The potential term is simply too massive.
 
-Further analysis leads us to a somewhat surprising result - particles are never unbound! During our simulation, there is no point at which a particle ends up gravitationally unbound. While at first this seems suspect, it makes more sense in hindsight - during the MW/M31 collision, the only particles significantly kinematically perturbed (as reflected in Figure 3 (this ref not working?)\ref{fig:meanstdev}) are the Disk particles. These, too, only escape out to distances of about $20kpc$, leaving the bulk of the mass still bound to the galaxies. What kinetic energy is gained drops off very quickly (see Figure \ref{fig:vdists}) due to the effects of dynamical friction, courtesy of the $\sim 100kpc$ Dark Matter Halos surrounding the system. So, during the actual MW/M31 merger, there will likely be very few stars that manage to escape beyond the gravitational well of the combined system. The best they can do is transfer from one galaxy to another, which brings us neatly on to our next figure.
+Further analysis leads us to a somewhat surprising result - particles are never unbound! During our simulation, there is no point at which a particle ends up gravitationally unbound. While at first this seems suspect, it makes more sense in hindsight - during the MW/M31 collision, the only particles significantly kinematically perturbed (as reflected in Figure 4) are the Disk particles. These, too, only escape out to distances of about $20kpc$, leaving the bulk of the mass still bound to the galaxies. What kinetic energy is gained drops off very quickly (see Figure \ref{fig:vdists}) due to the effects of dynamical friction, courtesy of the $\sim 100kpc$ Dark Matter Halos surrounding the system. So, during the actual MW/M31 merger, there will likely be very few stars that manage to escape beyond the gravitational well of the combined system. The best they can do is transfer from one galaxy to another, which brings us neatly on to our next figure.
 
-Figure \ref{fig:meanstdev} This shows us how disruptive the first close encounter is, and the deformation of the galaxies. Once more, the strongest effect is seen in the disk particles, which go from hovering below 5kpc all the way up to 18kpc, with fluctuations with each subsequent close encounter. The Halo, in the grand scheme of thing, is almost completely unaffected, though that is only because of the immense scale. It fluctuates by almost 50kpc. The bulge's evolution is significantly more damped than the disk's, but is still very violent - the mean radius changes from 40 to over 60kpc, and it seems to keep rising. This might be indicative of the combined system tending towards a more spherically symmetric shape towards the end of the merger.
+Figure 4 shows us how disruptive the first close encounter is, and the deformation of the galaxies. Once more, the strongest effect is seen in the disk particles, which go from hovering below 5kpc all the way up to 18kpc, with fluctuations with each subsequent close encounter. The Halo, in the grand scheme of thing, is almost completely unaffected, though that is only because of the immense scale. It fluctuates by almost 50kpc. The bulge's evolution is significantly more damped than the disk's, but is still very violent - the mean radius changes from 40 to over 60kpc, and it seems to keep rising. This might be indicative of the combined system tending towards a more spherically symmetric shape towards the end of the merger.
 
 Let's look more closely at the merger itself. Figure \ref{fig:2dproj}
-shows us the mass transfer between our galaxies, and it effectively demonstrates the mass transfer and immense displacement of particles. The mass transferred from M31 (red) to the MW (blue) largely ends up close to the galactic centre, which aligns with our expectation. However, it also shows that the particles which are flung out do not become gravitationally unbound, as eventually they end up falling back into the centre. This is somewhat reflected in Figure \ref{fig:meanstdev}, which implies that particles aren't being gravitationally unbound, instead they are finding a new equilibrium at which they can rotate in the now-combined system.
+shows us the mass transfer between our galaxies, and it effectively demonstrates the mass transfer and immense displacement of particles. The mass transferred from M31 (red) to the MW (blue) largely ends up close to the galactic centre, which aligns with our expectation. However, it also shows that the particles which are flung out do not become gravitationally unbound, as eventually they end up falling back into the centre. This is somewhat reflected in Figure 4, which implies that particles aren't being gravitationally unbound, instead they are finding a new equilibrium at which they can rotate in the now-combined system.
 
 
 \section{Conclusion}
