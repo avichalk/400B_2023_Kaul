@@ -189,7 +189,6 @@ class GenerateEnergies:
             ## flag to generate data. if not, we load from file.
 
             self.time, self.total, self.data = Read(self.name)
-            print(self.total)
 
             
             if ptype == None:
@@ -613,7 +612,7 @@ def main():
     do_flag = True
     if do_flag:
         
-        for i in range(0, 800, 50):
+        for i in range(300, 500, 25):
             print(i)
                 
             fig, ax = plt.subplots(4, 3, figsize=[30, 15])
@@ -664,9 +663,10 @@ def main():
                     ax[3, idx].set_title(f"M31 {ptypecheatsheet[ptype]} Particles Energy wrt M31")
                 
 
-            fig, ax = plt.subplots(2, figsize=[30, 15])
+            fig, ax = plt.subplots(ncols=2, figsize=[30, 15])
 
             for idx, ptype in enumerate([2]):
+                ## we only care about disk particles here
                 
                 EMW = GenerateEnergies(i, "MW", ptype)
                 mw_to_mw, mw_to_m31 = EMW.check_if_bound()
@@ -678,16 +678,20 @@ def main():
                 M31 = GalaxyPos(i, "M31")
 
                 ## position of all stuff
-                scat1 = ax[0, idx].scatter(*MW.position(ptype=ptype),label="MW", c=np.where(mw_to_mw-mw_to_m31<0), cmap='magma') 
-                ax[0, idx].set_title(f"Milky Way {ptypecheatsheet[ptype]}")
-                scat2 = ax[0, idx].scatter(*M31.position(ptype=ptype),label="M31", c='r')#m31_to_m31-m31_to_mw, cmap='magma')
-                ax[0, idx].set_title(f"M31 {ptypecheatsheet[ptype]}")
-                ax[0, idx].legend()
                 
-                scat1 = ax[1, idx].scatter(*MW.position(ptype=ptype),label="MW", c=(np.where(mw_to_mw>0)), cmap='magma') ## mw_to_mw - mw_to_m31???
-                ax[2, idx].set_title(f"Milky Way {ptypecheatsheet[ptype]}")
-                scat2 = ax[0, idx].scatter(*M31.position(ptype=ptype),label="M31", c=(np.where(m31_to_m31>0)), cmap='magma')
-                ax[3, idx].set_title(f"M31 {ptypecheatsheet[ptype]}")
+                ## transparent backgroud
+                scat1 = ax[0].scatter(*MW.position(ptype=ptype),label="MW", color=[1., 0.5, 0.5])
+                scat2 = ax[1].scatter(*M31.position(ptype=ptype),label="M31", color=[1., 0.5, 0.5])
+
+                ## overlay
+                scat1 = ax[0].scatter(*MW.position(ptype=ptype),label="MW", c=np.where(mw_to_mw-mw_to_m31<0, 'k', np.where(mw_to_mw-mw_to_m31>0, 'r', 'b'))) 
+                scat2 = ax[1].scatter(*M31.position(ptype=ptype),label="M31", c=np.where(m31_to_m31-m31_to_mw<0, 'k', np.where(m31_to_m31-m31_to_mw>0, 'r', 'b')),)
+                #ax[0, idx].legend()
+                
+                #scat1 = ax[1, idx].scatter(*MW.position(ptype=ptype),label="MW", c=(np.where(mw_to_mw>0)), cmap='magma') ## mw_to_mw - mw_to_m31???
+                #ax[2, idx].set_title(f"Milky Way {ptypecheatsheet[ptype]}")
+                #scat2 = ax[0, idx].scatter(*M31.position(ptype=ptype),label="M31", c=(np.where(m31_to_m31>0)), cmap='magma')
+                #ax[2, idx].set_title(f"M31 {ptypecheatsheet[ptype]}")
 
 
             fig.savefig(f"output/potentialbar/{i}")
