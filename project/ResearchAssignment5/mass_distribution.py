@@ -22,7 +22,7 @@ class MassProfile:
             None
         
         """
-        self.filename = f'snapshots/{galaxy}_{["000"+str(snapshot)][0][-3:]}.txt'
+        self.filename = f'snapshots/{galaxy}/{galaxy}_{["000"+str(snapshot)][0][-3:]}.txt'
         self.gname = galaxy
         self.time, self.total, self.data = Read(self.filename)
 

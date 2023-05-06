@@ -210,14 +210,14 @@ class CenterOfMass:
         
         # the max distance from the center that we will use to determine 
         #the center of mass velocity                   
-        rv_max = 15.0*u.kpc
+        rv_max = 15.0 #*u.kpc
 
         # determine the position of all particles 
         # relative to the center of mass position (x_COM, y_COM, z_COM)
         # write your own code below
-        xV = self.x[:]*u.kpc - x_COM
-        yV = self.y[:]*u.kpc - y_COM
-        zV = self.z[:]*u.kpc - z_COM
+        xV = self.x[:] - x_COM # *u.kpc
+        yV = self.y[:] - y_COM # *u.kpc
+        zV = self.z[:] - z_COM # *u.kpc
         rV = np.sqrt(xV**2 + yV**2 + zV**2)
         
         # determine the index for those particles within the max radius
