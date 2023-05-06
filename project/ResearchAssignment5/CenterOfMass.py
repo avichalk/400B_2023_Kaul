@@ -215,9 +215,9 @@ class CenterOfMass:
         # determine the position of all particles 
         # relative to the center of mass position (x_COM, y_COM, z_COM)
         # write your own code below
-        xV = self.x[:] - x_COM # *u.kpc
-        yV = self.y[:] - y_COM # *u.kpc
-        zV = self.z[:] - z_COM # *u.kpc
+        xV = self.x[:] - x_COM.value # *u.kpc
+        yV = self.y[:] - y_COM.value # *u.kpc
+        zV = self.z[:] - z_COM.value # *u.kpc
         rV = np.sqrt(xV**2 + yV**2 + zV**2)
         
         # determine the index for those particles within the max radius

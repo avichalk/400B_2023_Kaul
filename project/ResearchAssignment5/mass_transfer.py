@@ -1,7 +1,15 @@
-## The goal of my research project is to track the mass transfer between M31 and the Milky Way using Simulation Data.
-## For this assignment, we will only concern ourselves with the position of the transferred mass, as opposed to the kinematics.
-## We will be creating a plot showing the mass transferred between the two galaxies at different snapshots.
+## Galactic Mergers are a process during which two or more galaxies fall together
+## to form one galaxy. The structure of the galaxy undergoes massive changes, which 
+## can have huge consequences for stellar formation and galactic evolution. Our aim 
+## is to study the nature of the mass transfer during the merger between M31 and the
+## MW. This will help further our understanding of galactic evolution, and help 
+## explain where mass transferred between the galaxies ends up.
 
+
+## This code has multiple classes. Towards the top, GalaxyPos is useful for plotting the
+## position and velocity of the particles in the galaxy. Below, GenerateEnergies is used
+## to generate the total energy of a particle within the system and save it. 
+## And finally, we have the main function, which contains all the plotting code.
 
 import numpy as np # type: ignore
 import astropy.constants as const
@@ -25,14 +33,42 @@ from astropy.constants import G
 G = G.to(u.kpc * u.km**2 / u.s**2 / u.M_sun)
 
 def filename(snapshot, galaxy):
+    """
+    Returns the snapshot name on my local computer
+
+    Inputs:
+        snapshot : `int`
+            Snapshot Number.
+        Galaxy : `string`
+            Galaxy name.
+
+    Outputs:
+        `string`
+            The path to the snapshot and its name.
+    """
     return f'snapshots/{galaxy}/{galaxy}_{["000"+str(snapshot)][0][-3:]}.txt'
 
 class GalaxyPos:
     def __init__(self, snapshot, galaxy):
+        """"
+        Inputs:
+            snapshot : `int`
+                Snapshot Number.
+            Galaxy : `string`
+                Galaxy name
+        """
         self.shot = snapshot
         self.galaxy = galaxy
         self.time, self.total, self.data = Read(filename(snapshot, galaxy))                                                                                             
+        ## reads in all our data
+
     def plot_position(self, ptype=None):
+        """
+        Plots position of desired particles.
+        Inputs:
+            ptype : `int`
+                Type of particle you want plotted
+        """
         if ptype == None:
             self.x = self.data['x']
             self.y = self.data['y']
@@ -60,6 +96,18 @@ class GalaxyPos:
         plt.show()
 
     def position(self, ptype=None, COM=False):
+        """
+        Returns position of all particles in Cartesian coordinates
+        cooresponding to a particle particle type. COM logic was added
+        for functionality where you could calculate the distance from
+        the other galaxy, but I ran out of time :(
+
+        Inputs:
+            ptype : `None, int`
+                Particle type. If none, we sum over all particle types.
+            COM : `bool`
+                If True, subtract COM. If false, do not.
+        """
         if ptype == None:
             x = self.data['x']
             y = self.data['y']
@@ -79,6 +127,19 @@ class GalaxyPos:
         return x, y, z
 
     def velocity(self, ptype=None, COM=False):
+        """
+        Returns velocity components of all particles in Cartesian coordinates
+        cooresponding to a particle particle type. COM logic was added
+        for functionality where you could subtract COM velocity of
+        the other galaxy, but I ran out of time :(
+
+        Inputs:
+            ptype : `None, int`
+                Particle type. If none, we sum over all particle types.
+            COM : `bool`
+                If True, subtract COM. If false, do not.
+        """
+
         if ptype == None:
             x = self.data['vx']
             y = self.data['vy']
@@ -99,24 +160,23 @@ class GalaxyPos:
 
         return x, y, z
 
-
-
- 
-
-
-"""            COM = np.sum([CenterOfMass(filename(self.shot, self.galaxy), i) for i in range])
-
-At each timestep, calculate all particle potential energy and kinetic energy. use hernquist profile and COM to find which particles are bound to what. 
-So, at each timestep, a new class is instantiated.
-"""
-
 class GenerateEnergies:
     def __init__(self, snapshot, galaxy, ptype=None):
         """
         Generate energies for each particle and save back into a file
         that can be read from for future work.
 
-        We calculate the binding for all particles of one galaxy first, then all particles of the second galaxy.
+        We calculate the binding for all particles of one galaxy first,
+        then all particles of the second galaxy. The goal is to check if
+        one is greater than the other.
+
+        Inputs:
+            snapshot : `int`
+                Snapshot number
+            galaxy : `string`
+                Galaxy name
+            ptype : `None, int`
+                Particle type. If none, we sum over all particle types.
         """
         print(f"    Galaxy: {galaxy}")
         print(f"    Particle Type: {ptype}")
@@ -126,8 +186,10 @@ class GenerateEnergies:
         self.ptype = ptype
 
         if len(sys.argv) > 1 and sys.argv[1] == "-r":
+            ## flag to generate data. if not, we load from file.
 
             self.time, self.total, self.data = Read(self.name)
+            print(self.total)
 
             
             if ptype == None:
@@ -168,6 +230,8 @@ class GenerateEnergies:
                 Contains m : mass in 1e10 solar masses
                 x, y, z : radii in kpc
                 vx, vy, vz : component velocities in km/s
+            COM : `class`
+                COM object to calculate COM velocity
 
         Outputs:
             KE: `3d np array of floats`
@@ -180,41 +244,48 @@ class GenerateEnergies:
         v_squared = vx**2 + vy**2 + vz**2 ## subtract COM velocity
         return 0.5 * self.m * v_squared #* (u.km / u.s)**2 ## * 1e10 * u.Msun * 
 
-    def V(self, COM):
+    def V(self,):
         """
         Generates V for each particle in the dataset.
         We find the mass enclosed using a Hernquist profile.
-        Unclear ATM how accurate this is.
+        This class is run for one galaxy at a time (parent galaxy). So, it first calculates
+        the potentials for all MW partiles against MW and M31, then for all
+        M31 particles against MW and M31. 
         Inputs:
             self.data : `np array of floats`
                 Contains m : mass in 1e10 solar masses
                 x, y, z : radii in kpc
                 vx, vy, vz : component velocities in km/s
-        Calculates separately for MW and M31, and returns in array.
+        Outputs:
+            out : `array of numpy arrays`
+                Potential of parent galaxy's particles to (a) themselves and 
+                (b) the other galaxy.
         """
-        ## permutations of measuring V?
-        ## this entire function to be called twice for both data (MW and M31)
         out = []
 
-        ## calculates distance for all particles of one galaxy
         print(f"        Calculating V for {self.galaxy}.") 
-
-        COM_p = COM.COM_P(0.1).value
-        a = self.x - COM_p[0]
-        b = self.y - COM_p[1]
-        c = self.z - COM_p[2]
-        r = np.sqrt(np.square(a)+np.square(b)+np.square(c))
-
+        
         ## now calculates potential for each particle for MW, then M31
         for i in {"MW", "M31"}:
-            print(f"        Calculating against {i}")
-            Profile = MassProfile(i, self.shot) ## ansc inputs, don't actually work
-            ## what the hell is wrong with this code
+            range = [1, 2, 3] if self.ptype == None else [self.ptype] 
+            ## calculates distance from parent to COM
+            COM = np.sum([CenterOfMass(filename(self.shot, i), j) for j in range])
+            COM_p = COM.COM_P(0.1).value
+            a = self.x - COM_p[0]
+            b = self.y - COM_p[1]
+            c = self.z - COM_p[2]
+            r = np.sqrt(np.square(a)+np.square(b)+np.square(c))
 
+            ## calculates mass profile
+            print(f"        Calculating against {i}")
+            Profile = MassProfile(i, self.shot)
+
+            ## finds mass enclosed
             print("             Calculating mass enclosed")
             full_halo_mass_index = np.where(Profile.data["type"] == 1)[0]
             full_halo_mass = np.sum(Profile.data["m"][full_halo_mass_index]) ## scalar
 
+            ## plugs into our equation to get the potential
             M = Profile.HernquistMass(r, 62, full_halo_mass)
             print("             Calculating V")
             V = - G * M / r
@@ -224,19 +295,25 @@ class GenerateEnergies:
 
     def check_if_bound(self,):
         """
-        Check total energy. If -ve, it is gravitationally bound to that galaxy.
-        If positive, unbound. Check against both galaxies.
-        [too bound. check if greater than attraction to other galaxy]
+        Generates total energy, with some logic about when to generate
+        and when to load from txt files instead. Runs very slowly...
+
+        Inputs:
+            N/A
+        Outputs:
+            E_MW, E_M31 : `numpy arrays of floats`
+                Energy of parent galaxy against MW,
+                Energy of parent galaxy against M31
         """
         
         if len(sys.argv) > 1 and sys.argv[1] == "-r":
 
-            range = [1, 2, 3] if self.ptype == None else [self.ptype]
+            range = [1, 2, 3] if self.ptype == None else [self.ptype] 
             COM = np.sum([CenterOfMass(filename(self.shot, self.galaxy), i) for i in range])
-        
+
             KE = self.KE(COM) ## units of (km/s)^2 * 1e10 Msun
 
-            res = self.V(COM) ## units of (km/s)^2 * 1e10 Msun
+            res = self.V() ## units of (km/s)^2 * 1e10 Msun
             np.savetxt(f"potential/{self.galaxy}_{self.shot}_{self.ptype}0.txt", res[0])
             np.savetxt(f"potential/{self.galaxy}_{self.shot}_{self.ptype}1.txt", res[1])
             np.savetxt(f"potential/{self.galaxy}_{self.shot}_{self.ptype}2.txt", KE)
@@ -273,13 +350,6 @@ def main():
     ptypecheatsheet = {1:"Halo", 2:"Disk", 3:"Bulge"}
 
 
-    ## plots to make
-    ## do not check during the merger. only check during the close encounters, and then move on to check unbound particles during the merger
-    ## kinematics of the results. histogram of velocities? velocity vs radius?
-    ## also plot means etc differently
-    ## track distance of particles from centre of other galaxy
-
-
     do_flag = False
     if do_flag:
          for i in range(300, 500, 20):
@@ -302,11 +372,11 @@ def main():
                 plt.close()
 
 
-
-
     do_flag = False
     if do_flag:
         fig, ax = plt.subplots(2, ncols=len(ptypelist), figsize=[30, 15],) #squeeze=False) #subplot_kw=dict(projection='3d'))
+
+        ## this code finds the mean and stdev of the galactocentric radius
 
         # I was coming up on the deadline, numpy was really not
         # collaborating, and eventually...
@@ -414,7 +484,7 @@ def main():
         fig.savefig("meanstdev.png")
 
 
-    ## radii of MW and M31
+    ## showing the change in radii of MW and M31
     do_flag = False
     if do_flag:
         for i in range(0, 800, 5):
@@ -494,7 +564,8 @@ def main():
                 print(f"Problematic snapshot : {i}")
 
 
-    
+    ## this function would've dynamically detect the bounds of 
+    ## the galaxies. I say "would've" because it doesn't work.
     do_flag = False
     if do_flag:
 
@@ -537,9 +608,94 @@ def main():
                 fig.savefig(f"output/r_hist_{i}")
 
                 
+    ## function that generates all energies
+    ## and plots the results
     do_flag = True
     if do_flag:
         
+        for i in range(0, 800, 50):
+            print(i)
+                
+            fig, ax = plt.subplots(4, 3, figsize=[30, 15])
+
+            for idx, ptype in enumerate(ptypelist):
+
+                EMW = GenerateEnergies(i, "MW", ptype)
+                mw_to_mw, mw_to_m31 = EMW.check_if_bound()
+
+                EM31 = GenerateEnergies(i, "M31", ptype)
+                m31_to_mw, m31_to_m31 = EM31.check_if_bound()
+
+                # to generate all potential files
+                del EMW
+                del EM31
+                gc.collect()
+
+
+                # Potentials w/ time.
+                # this plot was not very useful...
+                do_flag = False
+                if do_flag: 
+                    print("np.where")
+                    print(len(np.where(mw_to_mw - mw_to_m31 > 0)[0]))
+                    ax[idx].bar("Particles MW Bound", len(np.where(mw_to_mw - mw_to_m31 > 0)[0]), )
+                    ax[idx].bar("MW Particles M31 Bound", len(np.where(mw_to_mw - mw_to_m31 < 0)[0]),)
+                    ax[idx].bar("M31 Particles M31 Bound", len(np.where(m31_to_m31 - m31_to_mw > 0)[0]),)
+                    ax[idx].bar("M31 Particles MW Bound", len(np.where(m31_to_m31 - m31_to_mw < 0)[0]),)
+
+                    ax[idx].legend(loc='upper left')
+
+                    print(f"mw {len(np.where(mw_to_mw<mw_to_m31)[0])}")
+                    print(f"m31 {len(np.where(m31_to_m31<m31_to_mw)[0])}") ## interesting note: no unbound particles ever! which makes sense. they'll still be in the dm halo, and the halo kinematics don't change a whole lot during the collision.
+
+                ## potentials energy histogram
+                do_flag = False
+                if do_flag:
+                    nbins = 500
+                    ax[0, idx].hist(mw_to_mw, bins=nbins)
+                    ax[0, idx].set_title(f"MW {ptypecheatsheet[ptype]} Particles Energy wrt MW")
+                    ax[3, 0].set_xlabel("Energy (Absolute Value) (m^3 / s^2 1e10Msun)")
+                    ax[3, 0].set_ylabel("No. of particles at this Energy")
+                    ax[1, idx].hist(mw_to_m31, bins=nbins)
+                    ax[1, idx].set_title(f"MW {ptypecheatsheet[ptype]} Particles Energy wrt M31")
+                    ax[2, idx].hist(m31_to_mw, bins=nbins)
+                    ax[2, idx].set_title(f"M31 {ptypecheatsheet[ptype]} Particles Energy wrt MW")
+                    ax[3, idx].hist(m31_to_m31, bins=nbins)
+                    ax[3, idx].set_title(f"M31 {ptypecheatsheet[ptype]} Particles Energy wrt M31")
+                
+
+            fig, ax = plt.subplots(2, figsize=[30, 15])
+
+            for idx, ptype in enumerate([2]):
+                
+                EMW = GenerateEnergies(i, "MW", ptype)
+                mw_to_mw, mw_to_m31 = EMW.check_if_bound()
+
+                EM31 = GenerateEnergies(i, "M31", ptype)
+                m31_to_mw, m31_to_m31 = EM31.check_if_bound()
+
+                MW = GalaxyPos(i, "MW")
+                M31 = GalaxyPos(i, "M31")
+
+                ## position of all stuff
+                scat1 = ax[0, idx].scatter(*MW.position(ptype=ptype),label="MW", c=np.where(mw_to_mw-mw_to_m31<0), cmap='magma') 
+                ax[0, idx].set_title(f"Milky Way {ptypecheatsheet[ptype]}")
+                scat2 = ax[0, idx].scatter(*M31.position(ptype=ptype),label="M31", c='r')#m31_to_m31-m31_to_mw, cmap='magma')
+                ax[0, idx].set_title(f"M31 {ptypecheatsheet[ptype]}")
+                ax[0, idx].legend()
+                
+                scat1 = ax[1, idx].scatter(*MW.position(ptype=ptype),label="MW", c=(np.where(mw_to_mw>0)), cmap='magma') ## mw_to_mw - mw_to_m31???
+                ax[2, idx].set_title(f"Milky Way {ptypecheatsheet[ptype]}")
+                scat2 = ax[0, idx].scatter(*M31.position(ptype=ptype),label="M31", c=(np.where(m31_to_m31>0)), cmap='magma')
+                ax[3, idx].set_title(f"M31 {ptypecheatsheet[ptype]}")
+
+
+            fig.savefig(f"output/potentialbar/{i}")
+
+
+
+    do_flag = False
+    if do_flag:
         for i in range(200, 300, 10):
             print(i)
                 
@@ -547,41 +703,6 @@ def main():
 
             for idx, ptype in enumerate(ptypelist):
 
-                #EMW = GenerateEnergies(i, "MW", ptype)
-                #mw_to_mw, mw_to_m31 = EMW.check_if_bound()
-
-                #EM31 = GenerateEnergies(i, "M31", ptype)
-                #m31_to_mw, m31_to_m31 = EM31.check_if_bound()
-
-                ## to generate all potential files
-                #del EMW
-                #del EM31
-                #gc.collect()
-
-
-                ## Potentials w/ time.
-                ## this plot was not very useful...
-                #ax[idx].bar("Particles MW Bound", len(np.where(mw_to_mw - mw_to_m31 > 0)[0]), )
-                #ax[idx].bar("MW Particles M31 Bound", len(np.where(mw_to_mw - mw_to_m31 < 0)[0]),)
-                #ax[idx].bar("M31 Particles M31 Bound", len(np.where(m31_to_m31 - m31_to_mw > 0)[0]),)
-                #ax[idx].bar("M31 Particles MW Bound", len(np.where(m31_to_m31 - m31_to_mw < 0)[0]),)
-
-                #ax[idx].legend(loc='upper left') ## THIS DOES NOT WORK!!! WHY???
-
-                #print(f"mw {np.where(mw_to_mw<0)}")
-                #print(f"m31 {np.where(m31_to_m31<0)}") ## interesting note: no unbound particles ever! which makes sense. they'll still be in the dm halo, and the halo kinematics don't change a whole lot during the collision.
-
-                #nbins = 500
-                #ax[0, idx].hist(mw_to_mw, bins=nbins)
-                #ax[0, idx].set_title(f"MW {ptypecheatsheet[ptype]} Particles Energy wrt MW")
-                #ax[3, idx].set_xlabel("Energy (Absolute Value) (m^3 / s^2 1e10Msun)")
-                #ax[3, idx].set_ylabel("No. of particles at this Energy")
-                #ax[1, idx].hist(mw_to_m31, bins=nbins)
-                #ax[1, idx].set_title(f"MW {ptypecheatsheet[ptype]} Particles Energy wrt M31")
-                #ax[2, idx].hist(m31_to_mw, bins=nbins)
-                #ax[2, idx].set_title(f"M31 {ptypecheatsheet[ptype]} Particles Energy wrt MW")
-                #ax[3, idx].hist(m31_to_m31, bins=nbins)
-                #ax[3, idx].set_title(f"M31 {ptypecheatsheet[ptype]} Particles Energy wrt M31")
 
                 # plot positions of particles. to demonstrate mass transfer:
                 # first plot MW on top of M31
@@ -600,18 +721,6 @@ def main():
 
                 ax[idx].legend(loc='upper left') ## THIS DOES NOT WORK!!! WHY???
                 fig.suptitle(f"MW vs M31 (Snapshot {i})")
-
-
-                #scat1 = ax[0, idx].scatter(*MW.position(ptype=ptype),label="MW", c='b')#mw_to_mw-mw_to_m31, cmap='magma') 
-                #ax[0, idx].set_title(f"Milky Way {ptypecheatsheet[ptype]}")
-                #scat2 = ax[0, idx].scatter(*M31.position(ptype=ptype),label="M31", c='r')#m31_to_m31-m31_to_mw, cmap='magma')
-                #ax[0, idx].set_title(f"M31 {ptypecheatsheet[ptype]}")
-                #ax[0, idx].legend()
-                
-                #scat1 = ax[0, idx].scatter(*MW.position(ptype=ptype),label="MW", c=(np.where(mw_to_mw>0)), cmap='magma') ## mw_to_mw - mw_to_m31???
-                #ax[0, idx].set_title(f"Milky Way {ptypecheatsheet[ptype]}")
-                #scat2 = ax[0, idx].scatter(*M31.position(ptype=ptype),label="M31", c=(np.where(m31_to_m31>0)), cmap='magma')
-                #ax[0, idx].set_title(f"M31 {ptypecheatsheet[ptype]}")
 
 
                 ## 3d plotting : ax.view_init 
